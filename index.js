@@ -3,22 +3,7 @@ const handleCategory = async ()=>{
     const response = await fetch ('https://openapi.programming-hero.com/api/videos/categories')
     const data = await response.json()
     console.log(data.data)
-    // if(data.data.length === 0){
 
-    //   console.log('bhcgdhfhdfhdhfdfdfgggggggggggggggggggggggggggggggggggggggggggg')
-    //   const noDataContainer = document.getElementById('no-data-container')
-    //   const div = document.createElement('div')
-    //   div.innerHTML =`
-    //   <img src="./Logo.png" alt="">
-    //   <h2>Oops!! Sorry, There is no content here</h2>
-    //   `
-    //   noDataContainer.append(div)
-    // }
-
-    // else{
-    //   console.log('oooooooooooooooooooooooooooooooo')
-
-    // }
 
     const tabContainer = document.getElementById('tab-container')
     data.data.slice(0,4).forEach((category)=>{
@@ -30,8 +15,8 @@ const handleCategory = async ()=>{
     tabContainer.appendChild(div)
     })
 
-}
 
+}
 
     const handleLoadingAllContainer = async(categoryId)=>{
       // console.log(categoryId)
@@ -48,7 +33,9 @@ const handleCategory = async ()=>{
 
     <figure class="rounded-lg">
     <div class="relative"><img src="${cards?.thumbnail}" alt="pic" class="w-[312px] h-[200px]" /></div>
-    <div class="absolute right-7 bottom-24 text-white  rounded-lg bg-black"><h2 class="text-sm">${cards.others.posted_date ? cards.others.posted_date:""}</h2>
+
+    <div id="hourMin" class="absolute right-7 bottom-24 text-white  rounded-lg bg-black">
+    <h2 id="hoursMin" class="text-sm">${cards.others.posted_date ? cards.others.posted_date:""}</h2>
     </div>
     </figure>
 
@@ -95,17 +82,68 @@ const handleCategory = async ()=>{
      </div>
    </div>
     `
+    // const hourMinElement = document.getElementById('hourMin');
+    // const hourM = hourMinElement.innerHTML;
+
+    // const seconds = parseFloat(hourM)
+    // console.log(seconds)
+    // console.log(hourM)
+    // hourMinElement.innerHTML = secondsToHoursAndMinutes(seconds);
+    
+    // function secondsToHoursAndMinutes(seconds){
+    //   const hours = Math.floor(seconds/3600);
+    //   const minutes = Math.floor((seconds % 3600) / 60);
+    //   return `${hours} hours ${minutes} minutes ago`;
+    // }
+
     cardContainer.appendChild(div)
     })
+
 
     }
 
 
 
+    // drawing part
+    const noContent = async(category)=>{
+      const response =await fetch(`https://openapi.programming-hero.com/api/videos/category/${category}`)
+      const data = await response.json()
+      // console.log(data.data.length)
+      const noContentSection = document.getElementById('no-content')
+      console.log(data.status);
+
+      // if(data.data.length === 0){
+      //   noContentSection.classList.remove('hidden')
+
+      // }
+
+      // else{
+      //   console.log("hello 00000000")
+
+      // }
+      if(data.status === false){
+        noContentSection.classList.remove("hidden")
+
+      }
+
+      else{
+        noContentSection.classList.add("hidden")
+
+      }
+
+
+    };
 
 
 
 
 
-handleCategory()
-handleLoadingAllContainer(1000)
+
+
+
+
+
+handleCategory();
+handleLoadingAllContainer(1000);
+noContent(0);
+
