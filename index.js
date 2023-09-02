@@ -135,14 +135,6 @@ const handleCategory = async ()=>{
     };
 
 
-
-
-
-
-
-
-
-
 handleCategory();
 handleLoadingAllContainer(1000);
 noContent(0);
